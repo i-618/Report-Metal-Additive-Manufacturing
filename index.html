@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Report: The World of Metal 3D Printing</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #F5F5F4; color: #44403C; }
+        .chart-container { position: relative; width: 100%; max-width: 800px; margin-left: auto; margin-right: auto; height: 400px; max-height: 50vh; }
+        .nav-link { transition: color 0.2s, border-color 0.2s; }
+        .tech-button.active { background-color: #2563EB; color: white; }
+        .tech-button { transition: background-color 0.2s, color 0.2s; }
+        .industry-card { transition: transform 0.2s, box-shadow 0.2s; }
+        .industry-card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); }
+        .fade-in { animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body class="bg-stone-100 text-stone-800">
+
+    <div id="app" class="max-w-7xl mx-auto">
+        <header class="sticky top-0 bg-stone-100/80 backdrop-blur-lg z-50 shadow-sm">
+            <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-16">
+                    <div class="flex-shrink-0">
+                        <h1 class="text-xl font-bold text-blue-600">Metal AM Interactive</h1>
+                    </div>
+                    <div class="hidden md:block">
+                        <div class="ml-10 flex items-baseline space-x-4">
+                            <a href="#technologies" class="nav-link text-stone-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium border-b-2 border-transparent hover:border-blue-600">Technologies</a>
+                            <a href="#applications" class="nav-link text-stone-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium border-b-2 border-transparent hover:border-blue-600">Applications</a>
+                            <a href="#economics" class="nav-link text-stone-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium border-b-2 border-transparent hover:border-blue-600">Economics</a>
+                            <a href="#frontier" class="nav-link text-stone-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium border-b-2 border-transparent hover:border-blue-600">Aerospace Frontier</a>
+                            <a href="./metal_am_source_report.html" target="_blank" class="nav-link bg-blue-600 text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700">View Full Report</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            
+            <section class="text-center mb-20">
+                <h2 class="text-4xl font-extrabold tracking-tight text-stone-900 sm:text-5xl md:text-6xl">An In-Depth Analysis of Metal Additive Manufacturing</h2>
+                <p class="mt-6 max-w-3xl mx-auto text-lg text-stone-600">This interactive report translates a comprehensive analysis of metal 3D printing into an explorable experience. Navigate through core technologies, industrial applications, economic factors, and the future of manufacturing in space.</p>
+            </section>
+
+            <section id="technologies" class="mb-20 scroll-mt-20">
+                <div class="text-center mb-12">
+                    <h3 class="text-3xl font-bold text-stone-900">Core Technology Comparator</h3>
+                    <p class="mt-4 max-w-2xl mx-auto text-md text-stone-600">Metal AM is not one single process. Select a technology below to explore its fundamental principles, advantages, and limitations. This allows for a direct comparison of the trade-offs between speed, resolution, and material properties.</p>
+                </div>
+                <div class="flex justify-center flex-wrap gap-2 mb-8">
+                    <button class="tech-button px-4 py-2 text-sm font-semibold rounded-full border border-stone-300 bg-white text-stone-700 hover:bg-stone-50" data-tech="l-pbf">L-PBF</button>
+                    <button class="tech-button px-4 py-2 text-sm font-semibold rounded-full border border-stone-300 bg-white text-stone-700 hover:bg-stone-50" data-tech="ebm">EBM</button>
+                    <button class="tech-button px-4 py-2 text-sm font-semibold rounded-full border border-stone-300 bg-white text-stone-700 hover:bg-stone-50" data-tech="ded">DED</button>
+                    <button class="tech-button px-4 py-2 text-sm font-semibold rounded-full border border-stone-300 bg-white text-stone-700 hover:bg-stone-50" data-tech="bj">Binder Jetting</button>
+                </div>
+                <div id="tech-display" class="bg-white p-8 rounded-xl shadow-lg min-h-[400px]">
+                </div>
+            </section>
+
+            <section id="applications" class="mb-20 scroll-mt-20">
+                <div class="text-center mb-12">
+                    <h3 class="text-3xl font-bold text-stone-900">Industrial Applications Explorer</h3>
+                    <p class="mt-4 max-w-2xl mx-auto text-md text-stone-600">Adoption of metal AM is driven by the unique economic and performance priorities of each industry. Click on a sector to discover its key drivers, primary applications, and landmark case studies.</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="industry-card bg-white p-6 rounded-xl cursor-pointer" data-industry="aerospace">
+                        <h4 class="text-xl font-bold text-blue-600">Aerospace & Defense</h4>
+                        <p class="mt-2 text-stone-600">Driven by performance-per-kilogram, focusing on lightweighting, part consolidation, and thermal management.</p>
+                    </div>
+                    <div class="industry-card bg-white p-6 rounded-xl cursor-pointer" data-industry="automotive">
+                        <h4 class="text-xl font-bold text-blue-600">Automotive</h4>
+                        <p class="mt-2 text-stone-600">Driven by cost-per-part, focusing on rapid prototyping, custom tooling, and high-performance niche vehicles.</p>
+                    </div>
+                    <div class="industry-card bg-white p-6 rounded-xl cursor-pointer" data-industry="medical">
+                        <h4 class="text-xl font-bold text-blue-600">Medical & Dental</h4>
+                        <p class="mt-2 text-stone-600">Driven by patient-specific efficacy, enabling mass customization of implants and surgical guides.</p>
+                    </div>
+                </div>
+                <div id="industry-display" class="mt-8 bg-white p-8 rounded-xl shadow-lg min-h-[200px] hidden"></div>
+            </section>
+
+            <section id="economics" class="mb-20 scroll-mt-20">
+                 <div class="text-center mb-12">
+                    <h3 class="text-3xl font-bold text-stone-900">Economic Dashboard</h3>
+                    <p class="mt-4 max-w-2xl mx-auto text-md text-stone-600">Explore the financial landscape of metal AM, from raw material costs to the critical break-even analysis against traditional manufacturing methods like molding.</p>
+                </div>
+                <div class="space-y-12">
+                    <div class="bg-white p-6 rounded-xl shadow-lg">
+                        <h4 class="text-lg font-bold mb-4 text-center">Cost Per Part: 3D Printing vs. Molding</h4>
+                        <p class="text-center text-sm text-stone-600 mb-4 max-w-3xl mx-auto">This chart illustrates the fundamental economic trade-off. 3D printing has no tooling cost, making it ideal for low volumes. Molding (MIM) has high upfront tooling costs, but becomes far cheaper per part at high volumes. The "break-even point" is where the lines cross.</p>
+                        <div class="chart-container">
+                            <canvas id="costComparisonChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="grid lg:grid-cols-2 gap-8">
+                        <div class="bg-white p-6 rounded-xl shadow-lg">
+                            <h4 class="text-lg font-bold mb-4 text-center">Metal Powder Costs (USD per kg)</h4>
+                            <div class="chart-container">
+                                <canvas id="materialCostChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="space-y-8">
+                            <div class="bg-white p-6 rounded-xl shadow-lg">
+                                <h4 class="text-lg font-bold mb-2">System Acquisition Costs (CapEx)</h4>
+                                <div class="space-y-4">
+                                    <div>
+                                        <p class="font-semibold">Accessible Systems</p>
+                                        <div class="w-full bg-stone-200 rounded-full h-4"><div class="bg-blue-500 h-4 rounded-full" style="width: 20%"></div></div>
+                                        <p class="text-sm text-stone-600">$100,000 - $200,000</p>
+                                    </div>
+                                    <div>
+                                        <p class="font-semibold">Industrial Production Systems</p>
+                                        <div class="w-full bg-stone-200 rounded-full h-4"><div class="bg-blue-700 h-4 rounded-full" style="width: 100%"></div></div>
+                                        <p class="text-sm text-stone-600">$500,000 - $1,000,000+</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bg-white p-6 rounded-xl shadow-lg grid grid-cols-2 gap-4 text-center">
+                                <div>
+                                    <p class="text-3xl font-bold text-blue-600">11-25%</p>
+                                    <p class="text-sm text-stone-600">Projected Market CAGR</p>
+                                </div>
+                                <div>
+                                    <p class="text-3xl font-bold text-blue-600">~45%</p>
+                                    <p class="text-sm text-stone-600">Market Share of Top 3 Vendors</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="frontier" class="scroll-mt-20">
+                <div class="text-center mb-12">
+                    <h3 class="text-3xl font-bold text-stone-900">The Aerospace Frontier</h3>
+                    <p class="mt-4 max-w-2xl mx-auto text-md text-stone-600">Aerospace is the ultimate proving ground for metal AM. This section highlights a recent success in rocket manufacturing and details the profound challenges of printing in the harsh environment of space.</p>
+                </div>
+                <div class="grid lg:grid-cols-5 gap-8">
+                    <div class="lg:col-span-2 bg-white p-6 rounded-xl shadow-lg flex flex-col">
+                        <h4 class="text-lg font-bold mb-2">Case Study: Japan's 3D-Printed Rocket Tank</h4>
+                        <p class="text-sm text-stone-600 mb-4">In March 2025, ISC successfully tested Japan's largest 3D-printed propellant tank using WAAM, validating the technology for agile development of critical space hardware.</p>
+                        <div class="grid grid-cols-2 gap-2 mb-4">
+                            <img src="https://d3arjnx5mbkl66.cloudfront.net/wp-content/uploads/2025/03/DSC04316-683x1024.jpeg" alt="3D Printed Rocket Tank - Side View" class="w-full h-48 object-cover rounded-lg shadow-md" onerror="this.onerror=null;this.src='https://placehold.co/683x1024/e2e8f0/475569?text=Image+Not+Found';">
+                            <img src="https://d3arjnx5mbkl66.cloudfront.net/wp-content/uploads/2025/03/DSC04195-1-1024x683.jpeg" alt="3D Printed Rocket Tank - Top View" class="w-full h-48 object-cover rounded-lg shadow-md" onerror="this.onerror=null;this.src='https://placehold.co/1024x683/e2e8f0/475569?text=Image+Not+Found';">
+                        </div>
+                        <ul class="space-y-3 text-sm">
+                            <li class="flex items-start"><span class="text-blue-500 mr-2 font-bold">✓</span><div><strong>Timeline:</strong> Design to testing completed in under 1 year.</div></li>
+                            <li class="flex items-start"><span class="text-blue-500 mr-2 font-bold">✓</span><div><strong>Pressure Test:</strong> Withstood 0.76 MPa, meeting targets.</div></li>
+                            <li class="flex items-start"><span class="text-blue-500 mr-2 font-bold">✓</span><div><strong>Significance:</strong> Proved WAAM can produce large, structurally sound pressure vessels for spaceflight.</div></li>
+                        </ul>
+                    </div>
+                    <div class="lg:col-span-3 bg-white p-6 rounded-xl shadow-lg">
+                        <h4 class="text-lg font-bold mb-4">Grand Challenges of In-Space Manufacturing</h4>
+                        <p class="text-sm text-stone-600 mb-4">Printing in space is not as simple as launching a terrestrial printer. The entire process must be re-engineered to overcome fundamental physics challenges.</p>
+                        <ul id="challenges-list" class="space-y-1">
+                            <li class="p-2 rounded-md hover:bg-stone-100 cursor-pointer" data-challenge="microgravity"><strong>Microgravity:</strong> Surface tension dominates, causing molten metal to "ball up" instead of spreading evenly.</li>
+                            <li class="p-2 rounded-md hover:bg-stone-100 cursor-pointer" data-challenge="vacuum"><strong>Vacuum:</strong> Creates a pure environment but causes material outgassing, which can contaminate sensitive equipment.</li>
+                            <li class="p-2 rounded-md hover:bg-stone-100 cursor-pointer" data-challenge="radiation"><strong>Radiation:</strong> High-energy particles can degrade material properties and alter crystalline structures over time.</li>
+                            <li class="p-2 rounded-md hover:bg-stone-100 cursor-pointer" data-challenge="stress"><strong>Residual Stress:</strong> Locked-in stresses from printing can lower fatigue life and lead to premature failure under launch vibrations.</li>
+                            <li class="p-2 rounded-md hover:bg-stone-100 cursor-pointer" data-challenge="qualification"><strong>Qualification:</strong> Parts require extremely rigorous testing to prove the process is repeatable and reliable for mission-critical use.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const techData = {
+                'l-pbf': {
+                    title: 'Laser-Powder Bed Fusion (L-PBF)',
+                    description: 'A high-power laser selectively melts fine metal powder in a sealed, inert gas chamber. It offers the highest resolution but suffers from high thermal stress, requiring extensive support structures.',
+                    pros: ['High resolution & detail', 'Excellent for complex internal geometries', 'Mature technology'],
+                    cons: ['High residual stress', 'Requires extensive supports', 'Slower for single large parts'],
+                    videoUrl: 'https://www.youtube.com/embed/2H-B1ve6TO4'
+                },
+                'ebm': {
+                    title: 'Electron Beam Melting (EBM)',
+                    description: 'A high-energy electron beam melts coarser metal powder in a high-vacuum, high-temperature environment. This reduces stress but results in a rougher surface finish.',
+                    pros: ['Low residual stress', 'Reduced need for supports', 'Faster than L-PBF'],
+                    cons: ['Requires vacuum', 'Conductive materials only', 'Rougher surface finish'],
+                    videoUrl: 'https://www.youtube.com/embed/U0V0jZEfTVo'
+                },
+                'ded': {
+                    title: 'Directed Energy Deposition (DED)',
+                    description: 'A robotic arm deposits and melts material (powder or wire) simultaneously. Ideal for large parts and repairs, with very high deposition rates but low resolution.',
+                    pros: ['Excellent for very large parts', 'High deposition rates', 'Can be used for repair'],
+                    cons: ['Very rough surface finish', 'Low dimensional accuracy', 'Requires extensive machining'],
+                    videoUrl: 'https://www.youtube.com/embed/cs5jOBjQPV4'
+                },
+                'bj': {
+                    title: 'Binder Jetting (BJ)',
+                    description: 'An inkjet head deposits a binder onto a powder bed at room temperature, eliminating thermal stress during printing. Requires a lengthy post-processing furnace cycle to create a solid metal part.',
+                    pros: ['No thermal stress during printing', 'No supports needed', 'Fast for batches of parts'],
+                    cons: ['Extensive multi-step post-processing', 'Part shrinkage must be managed', 'Can have lower density'],
+                    videoUrl: 'https://www.youtube.com/embed/_fhO4efJLIs'
+                }
+            };
+
+            const industryData = {
+                'aerospace': {
+                    title: 'Aerospace & Defense',
+                    points: [
+                        '<strong>Lightweighting:</strong> Topology optimization reduces part weight by up to 40%, saving fuel.',
+                        '<strong>Part Consolidation:</strong> GE\'s LEAP fuel nozzle consolidated 20 parts into one, making it 25% lighter and 5x more durable.',
+                        '<strong>Thermal Management:</strong> Creation of intricate internal cooling channels for turbine blades, improving engine efficiency.'
+                    ]
+                },
+                'automotive': {
+                    title: 'Automotive Industry',
+                    points: [
+                        '<strong>Rapid Prototyping:</strong> Reduces design iteration cycles from months to days for functional metal parts.',
+                        '<strong>Custom Tooling:</strong> On-demand printing of jigs and fixtures at a fraction of the cost of CNC machining.',
+                        '<strong>High-Performance Parts:</strong> Bugatti\'s 3D-printed titanium brake caliper is lighter and stronger than its milled predecessor.'
+                    ]
+                },
+                'medical': {
+                    title: 'Medical & Dental',
+                    points: [
+                        '<strong>Orthopedic Implants:</strong> Custom hip, knee, and spinal implants with porous structures that encourage bone growth (osseointegration).',
+                        '<strong>Dental Prosthetics:</strong> A fully digital workflow for producing precise crowns, bridges, and dentures.',
+                        '<strong>Surgical Guides:</strong> Patient-specific guides printed from CT scans improve surgical precision.'
+                    ]
+                }
+            };
+
+            const techButtons = document.querySelectorAll('.tech-button');
+            const techDisplay = document.getElementById('tech-display');
+
+            function updateTechDisplay(techKey) {
+                const data = techData[techKey];
+                techDisplay.innerHTML = `
+                    <div class="fade-in grid md:grid-cols-2 gap-8 items-center">
+                        <div>
+                            <h4 class="text-2xl font-bold mb-4">${data.title}</h4>
+                            <p class="text-stone-600 mb-6">${data.description}</p>
+                            <div class="grid sm:grid-cols-2 gap-6">
+                                <div>
+                                    <h5 class="font-semibold mb-2 text-green-600">Advantages</h5>
+                                    <ul class="list-disc list-inside space-y-1 text-sm text-stone-600">${data.pros.map(p => `<li>${p}</li>`).join('')}</ul>
+                                </div>
+                                <div>
+                                    <h5 class="font-semibold mb-2 text-red-600">Limitations</h5>
+                                    <ul class="list-disc list-inside space-y-1 text-sm text-stone-600">${data.cons.map(c => `<li>${c}</li>`).join('')}</ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-full h-0 pb-[56.25%] relative">
+                             <iframe class="absolute top-0 left-0 w-full h-full rounded-lg shadow-md" src="${data.videoUrl}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                `;
+                techButtons.forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.tech === techKey);
+                });
+            }
+
+            techButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    updateTechDisplay(button.dataset.tech);
+                });
+            });
+
+            updateTechDisplay('l-pbf');
+            
+            const industryCards = document.querySelectorAll('.industry-card');
+            const industryDisplay = document.getElementById('industry-display');
+
+            industryCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    const industryKey = card.dataset.industry;
+                    const data = industryData[industryKey];
+                    industryDisplay.innerHTML = `
+                        <div class="fade-in">
+                            <h4 class="text-2xl font-bold mb-4">${data.title}</h4>
+                            <ul class="space-y-3 text-stone-600">${data.points.map(p => `<li class="flex items-start"><span class="text-blue-500 mr-3 mt-1">▶</span><span>${p}</span></li>`).join('')}</ul>
+                        </div>
+                    `;
+                    industryDisplay.classList.remove('hidden');
+                });
+            });
+
+            const materialCostCtx = document.getElementById('materialCostChart').getContext('2d');
+            new Chart(materialCostCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['17-4 PH Steel', '316-L Steel', 'AlSi10Mg', 'Inconel 718', 'Ti-6Al-4V'],
+                    datasets: [{
+                        label: 'USD per kg',
+                        data: [78, 88, 98, 145, 363],
+                        backgroundColor: ['#A8A29E', '#78716C', '#57534E', '#44403C', '#2563EB'],
+                        borderColor: '#F5F5F4',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y',
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `$${context.raw.toFixed(2)} per kg`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            title: { display: true, text: 'Cost (USD)' }
+                        }
+                    }
+                }
+            });
+
+            const costComparisonCtx = document.getElementById('costComparisonChart').getContext('2d');
+            const volumes = [10, 100, 500, 1000, 5000, 10000];
+            const amCost = 75;
+            const mimToolingCost = 50000;
+            const mimPartCost = 5;
+            const mimCosts = volumes.map(vol => (mimToolingCost / vol) + mimPartCost);
+            const amCosts = volumes.map(() => amCost);
+
+            new Chart(costComparisonCtx, {
+                type: 'line',
+                data: {
+                    labels: volumes,
+                    datasets: [{
+                        label: 'Metal 3D Printing',
+                        data: amCosts,
+                        borderColor: '#2563EB',
+                        backgroundColor: '#2563EB20',
+                        fill: false,
+                        tension: 0.1
+                    }, {
+                        label: 'Molding (MIM)',
+                        data: mimCosts,
+                        borderColor: '#78716C',
+                        backgroundColor: '#78716C20',
+                        fill: false,
+                        tension: 0.1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.dataset.label}: $${context.raw.toFixed(2)} per part`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            type: 'logarithmic',
+                            title: {
+                                display: true,
+                                text: 'Part Volume (Number of Units)'
+                            }
+                        },
+                        y: {
+                           type: 'logarithmic',
+                            title: {
+                                display: true,
+                                text: 'Cost Per Part (USD)'
+                            },
+                             ticks: {
+                                callback: function(value, index, values) {
+                                    return '$' + value.toLocaleString();
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
